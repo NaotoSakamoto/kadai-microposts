@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    @include('users.navtabs')
     <div class="row">
         <aside class="col-sm-4">
             {{-- ユーザ情報 --}}
