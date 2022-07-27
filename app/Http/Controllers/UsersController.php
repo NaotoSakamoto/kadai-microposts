@@ -97,6 +97,32 @@ class UsersController extends Controller
             'microposts' => $microposts,
         ]);
     }
+    
+    public function destroy($id)
+    {
+        // idの値でユーザを検索して取得
+        $user = User::findOrFail($id);
+        
+        if(\Auth::user()->is_admin==1){
+            // ユーザを削除
+             $user->delete();
+        }
+
+        // リダイレクト
+        return redirect('/');
+    }
+    
+    public function confirmation($id)
+    {
+        if(\Auth::user()->is_admin==1){
+            // idの値でユーザを検索して取得
+            $user = User::findOrFail($id);
+            
+            return view('account_delete.confirmation', [
+                'user' => $user, 
+            ]);
+        }
+    }
 }
 
 

@@ -35,6 +35,16 @@
                             {!! Form::close() !!}
                         @endif
                     </div>
+                    <!--<div>-->
+                    <!--    @if (Auth::id() == $micropost->user_id)-->
+                    <!--        {{-- 投稿編集ボタンのフォーム --}}-->
+                    <!--        {!! Form::open(['route' => ['microposts.update', $micropost->id], 'method' => 'get']) !!}-->
+                    <!--            {!! Form::submit('Edit') !!}-->
+                    <!--        {!! Form::close() !!}-->
+                    <!--    @endif-->
+                    <!--</div>-->
+                    {{-- 編集ページへのリンク --}}
+                    {!! link_to_route('microposts.edit', 'Edit', ['micropost' => $micropost->id], ['class' => 'btn btn-light']) !!}
                 </div>
             </li>
         @endforeach

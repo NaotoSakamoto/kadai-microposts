@@ -54,4 +54,29 @@ class MicropostsController extends Controller
         // 前のURLへリダイレクトさせる
         return back();
     }
+    
+    // 追加
+    public function edit($id)
+    {
+        // idの値で投稿を検索して取得
+        $micropost = \App\Micropost::findOrFail($id);
+
+        // マイクロポスト編集ビューでそれを表示
+        return view('microposts.edit', [
+            'micropost' => $micropost,
+        ]);
+    }
+    
+    // putまたはpatchでmicropost/idにアクセスされた場合の「更新処理」
+    public function update(Request $request, $id)
+    {
+        // idの値でメッセージを検索して取得
+        $micropost = \App\Micropost::findOrFail($id);
+        // メッセージを更新
+        $micropost->content = $request->content;
+        $micropost->save();
+
+        // トップページへリダイレクトさせる
+        return redirect('/');
+    }
 }

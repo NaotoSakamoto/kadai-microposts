@@ -11,3 +11,9 @@
         {!! Form::close() !!}
     @endif
 @endif
+
+@if (Auth::user()->is_admin == 1)
+        {{-- 削除確認ページへのリンク --}}
+        {!! link_to_route('account_delete.confirmation', 'Delete this account', ['id' => $user->id], ['class' => "btn btn-danger btn-block"]) !!}
+@endif   
+
