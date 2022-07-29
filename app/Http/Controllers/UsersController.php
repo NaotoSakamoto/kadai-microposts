@@ -25,6 +25,9 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $microposts = $user->microposts()->orderBy('created_at', 'desc')->paginate(10);
         
+        // 関係するモデルの件数をロード
+        $user->loadRelationshipCounts();
+        
         // ユーザ詳細ビューでそれを表示
         return view('users.show', [
             'user' => $user,

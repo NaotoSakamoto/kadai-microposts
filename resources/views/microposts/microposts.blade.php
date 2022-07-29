@@ -20,13 +20,18 @@
                             {!! Form::open(['route' => ['microposts.destroy', $micropost->id], 'method' => 'delete']) !!}
                                 {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                             {!! Form::close() !!}
+                        @elseif (\Auth::user()->is_admin==1)
+                            {{-- 投稿削除ボタンのフォーム --}}
+                            {!! Form::open(['route' => ['microposts.destroy', $micropost->id], 'method' => 'delete']) !!}
+                                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
+                            {!! Form::close() !!}
                         @endif
                     </div>
                     <div>
                         @if (Auth::user()->is_favoriting($micropost->id))
                             {{-- お気に入り解除ボタンのフォーム --}}
                             {!! Form::open(['route' => ['favorites.unfavorite', $micropost->id], 'method' => 'delete']) !!}
-                                {!! Form::submit('Unfavorite',) !!}
+                                {!! Form::submit('Unfavorite', ['class' => 'btn btn-danger btn-sm']) !!}
                             {!! Form::close() !!}
                         @else
                             {{-- お気に入りボタンのフォーム --}}

@@ -50,6 +50,11 @@ class MicropostsController extends Controller
         if (\Auth::id() === $micropost->user_id) {
             $micropost->delete();
         }
+        
+        // 管理者アカウントの場合、投稿を削除
+        else if (\Auth::user()->is_admin==1) {
+            $micropost->delete();
+        }
 
         // 前のURLへリダイレクトさせる
         return back();
