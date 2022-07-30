@@ -65,11 +65,22 @@ class MicropostsController extends Controller
     {
         // idの値で投稿を検索して取得
         $micropost = \App\Micropost::findOrFail($id);
-
-        // マイクロポスト編集ビューでそれを表示
-        return view('microposts.edit', [
-            'micropost' => $micropost,
-        ]);
+        
+        // 認証済みユーザ（閲覧者）がその投稿の所有者である場合は、投稿を編集
+        if (\Auth::id() === $micropost->user_id) {
+            // マイクロポスト編集ビューでそれを表示
+            return view('microposts.edit', [
+                'micropost' => $micropost,
+            ]);
+        }         
+        
+        // 管理者アカウントの場合、投稿を編集
+        else if (\Auth::user()->is_admin==1) {
+            // マイクロポスト編集ビューでそれを表示
+            return view('microposts.edit', [
+                'micropost' => $micropost,
+            ]);
+        }
     }
     
     // putまたはpatchでmicropost/idにアクセスされた場合の「更新処理」
